@@ -11,3 +11,6 @@ export const columnLayout = {
     pos2: new Vector3(0, 0, 0),
     pos3: new Vector3(0, -2.5, 0),
 };
+
+export const ninetyDegrees = Math.PI / 2;
+export const oneEightyDegrees = Math.PI;
