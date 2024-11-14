@@ -1,16 +1,13 @@
 import { Vector3 } from '@babylonjs/core';
 
-export const rowLayout = {
-    pos1: new Vector3(-2.5, 0, 0),
-    pos2: new Vector3(0, 0, 0),
-    pos3: new Vector3(2.5, 0, 0),
-};
+export const objLeftPos = new Vector3(-5, 0, 0);
+export const objCenterPos = new Vector3(0, 0, 0);
+export const objRightPos = new Vector3(5, 0, 0);
 
-export const columnLayout = {
-    pos1: new Vector3(0, 2.5, 0),
-    pos2: new Vector3(0, 0, 0),
-    pos3: new Vector3(0, -2.5, 0),
-};
+export const camLeftPos = new Vector3(-5, 0, -10);
+export const camCenterPos = new Vector3(0, 0, -10);
+export const camRightPos = new Vector3(5, 0, -10);
+
 
 export const ninetyDegrees = Math.PI / 2;
 export const oneEightyDegrees = Math.PI;

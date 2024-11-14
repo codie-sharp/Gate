@@ -1,26 +1,45 @@
 import './style.css';
-// import * as constants from './utils/constants';
+import * as constants from './utils/constants';
 import * as shapes from './scenes/createShapes';
-import { ObjectManager } from './utils/objectManager'; 
-import { Engine, Scene, Camera, Vector3, HemisphericLight, Mesh, TargetCamera } from '@babylonjs/core';
+import { Engine, Scene, Vector3, HemisphericLight, Mesh, UniversalCamera, Viewport } from '@babylonjs/core';
 
 const canvas = document.getElementById('app') as HTMLCanvasElement;
 const engine = new Engine(canvas);
 const scene = new Scene(engine);
 
-const camera = new TargetCamera("camera", new Vector3(0 ,0, -2), scene);
-camera.mode = Camera.ORTHOGRAPHIC_CAMERA;
-scene.activeCamera = camera;
+let objLeft: Mesh = shapes.createCube(scene);
+objLeft.position = constants.objLeftPos;
 
-let obj1: Mesh = shapes.createCube(scene);
-let obj2: Mesh = shapes.createSphere(scene);
-let obj3: Mesh = shapes.createTorus(scene);
+let objCenter: Mesh = shapes.createSphere(scene);
+objCenter.position = constants.objCenterPos;
 
-const objectManager = new ObjectManager(engine, camera, scene, obj1, obj2, obj3)
-objectManager.updateLayout();
+let objRight: Mesh = shapes.createTorus(scene);
+objRight.position = constants.objRightPos;
+
+const camLeft = new UniversalCamera("camLeft", constants.camLeftPos, scene);
+camLeft.setTarget(constants.objLeftPos);
+camLeft.viewport = new Viewport(0, 0, 0.33, 1);
+camLeft.fov = 1 / (engine.getAspectRatio(camLeft) * 4);
+
+const camCenter = new UniversalCamera("camCenter", constants.camCenterPos, scene);
+camCenter.setTarget(constants.objCenterPos);
+camCenter.viewport = new Viewport(0.33, 0, 0.33, 1);
+camCenter.fov = 1 / (engine.getAspectRatio(camCenter) * 4);
+
+const camRight = new UniversalCamera("camRight", constants.camRightPos, scene);
+camRight.setTarget(constants.objRightPos);
+camRight.viewport = new Viewport(0.66, 0, 0.33, 1);
+camRight.fov = 1 / (engine.getAspectRatio(camRight) * 4);
+
+scene.activeCameras = [camLeft, camCenter, camRight];
 
 new HemisphericLight("light", new Vector3(0, 5, -5), scene);
 
 engine.runRenderLoop(() => scene.render());
 
-window.addEventListener("resize", () => objectManager.updateLayout());
+window.addEventListener("resize", () => {
+    engine.resize(true);
+    camLeft.fov = 1 / (engine.getAspectRatio(camLeft) * 4);
+    camCenter.fov = 1 / (engine.getAspectRatio(camCenter) * 4);
+    camRight.fov = 1 / (engine.getAspectRatio(camRight) * 4);
+});
