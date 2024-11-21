@@ -1,5 +1,3 @@
 Fix debugger at home
 
-camera manager
-
 how to handle objs
