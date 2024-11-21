@@ -1,3 +1,9 @@
 Fix debugger at home
 
 how to handle objs
+
+button handling
+1. file of listeners
+    const testButton = document.getElementById(testButton);
+    button.addEventListener('click', testFunction);
+
