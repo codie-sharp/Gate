@@ -1,9 +1,6 @@
+How to export array of functions in CreateShapes?
+How to randomize?
+
+in game home button -> delete objects -> show menu
+
 Fix debugger at home
-
-how to handle objs
-
-button handling
-1. file of listeners
-    const testButton = document.getElementById(testButton);
-    button.addEventListener('click', testFunction);
-

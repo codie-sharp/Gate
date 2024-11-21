@@ -1,16 +1,20 @@
-const menu = document.getElementById("menu");
+import { ObjectManager } from "./index";
 
-const sphereButton = document.getElementById("sphereButton");
-sphereButton?.addEventListener("click", () => {
-    menu!.style.display = "none";
-});
+class ButtonHandler {
+    private menu = document.getElementById("menu");
+    private buttons = document.querySelectorAll<HTMLButtonElement>("button");
+    private objectManager: ObjectManager;
 
-const cubeButton = document.getElementById("cubeButton");
-cubeButton?.addEventListener("click", () => {
-    menu!.style.display = "none";
-});
+    constructor(objectManager: ObjectManager) {
+        this.objectManager = objectManager;
+        this.buttons.forEach(button => {
+            button.addEventListener("click", () => {
+                const method = this.objectManager[button.dataset.method as keyof ObjectManager];
+                method.call(this.objectManager);
+                this.menu!.style.display = "none";
+            })
+        });
+    }
+}
 
-const torusButton = document.getElementById("torusButton");
-torusButton?.addEventListener("click", () => {
-    menu!.style.display = "none";
-});
+export default ButtonHandler;
