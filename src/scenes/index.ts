@@ -1,1 +1,1 @@
-export { default as CreateShapes } from './createShapes';
+export { createShape } from './createShapes';

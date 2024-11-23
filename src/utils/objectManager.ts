@@ -1,6 +1,6 @@
 import { Constants } from "./index";
-import { CreateShapes } from "../scenes"
-import { Mesh, MeshBuilder, Scene } from "@babylonjs/core";
+import { createShape } from "../scenes"
+import { Mesh, Scene } from "@babylonjs/core";
 
 class ObjectManager {
     private objects = [
@@ -16,8 +16,7 @@ class ObjectManager {
 
     createShapes() {
         this.objects.forEach(object => {
-            object.mesh = MeshBuilder.CreateSphere(object.name, { diameter: 2, segments: 16 }, this.scene);
-            object.mesh.position = object.position;
+            object.mesh = createShape(this.scene, object.position)
         })
     }
 }

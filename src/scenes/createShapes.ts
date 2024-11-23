@@ -1,25 +1,40 @@
-import { Constants } from '../utils';
-import { MeshBuilder, Mesh, Vector3, Scene } from '@babylonjs/core';
+import earcut from "earcut";
+import { Constants } from "../utils";
+import { MeshBuilder, Mesh, Vector3, Scene, StandardMaterial, Color3, Color4, VertexData } from '@babylonjs/core';
 
-class CreateShapes {
-    createSphere(position: Vector3): Mesh {
-        const sphere = MeshBuilder.CreateSphere("sphere", { diameter: 2, segments: 16 }, this.scene);
-        sphere.position = position;
-        return sphere;
-    }
+const shapes = [
+    function createCircle(scene: Scene): Mesh {
+        return MeshBuilder.CreateDisc("circle", { radius: 1}, scene);
+    },
+
+    function createSquare(scene: Scene): Mesh {
+        return MeshBuilder.CreatePlane("square", { size: 2 }, scene);
+    },
+
+    function createTriangle(scene: Scene): Mesh {
+        const triangle = new Mesh("triangle", scene);
     
-    createCube(scene: Scene, position: Vector3): Mesh {
-        const cube = MeshBuilder.CreateBox("cube", { size: 2 }, this.scene);
-        cube.position = position;
-        return cube;
-    }
+        const positions = [
+            0, 1, 0,
+            -1, -1, 0,
+            1, -1, 0
+        ];
     
-    createTorus(position: Vector3): Mesh {
-        const torus = MeshBuilder.CreateTorus("torus", { diameter: 1.75, thickness: .25 }, this.scene);
-        torus.position = position;
-        torus.rotation = new Vector3(Constants.ninetyDegrees, 0, 0);
-        return torus;
+        const indices = earcut([0, 1, -1, -1, 1, -1], undefined, 2);
+    
+        const vertexData = new VertexData();
+        vertexData.positions = positions;
+        vertexData.indices = indices;
+    
+        vertexData.applyToMesh(triangle);
+    
+        return triangle;
     }
+];
+
+export function createShape(scene: Scene, position: Vector3): Mesh {
+    const shapeFunction = shapes[Math.floor(Math.random() * shapes.length)];
+    const shape = shapeFunction(scene);
+    shape.position = position;
+    return shape;
 }
-
-export default CreateShapes;
