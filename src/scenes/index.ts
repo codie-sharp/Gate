@@ -1,1 +1,1 @@
-export { createShape } from './createShapes';
+export { Shapes } from './Shapes';

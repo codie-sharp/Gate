@@ -1,29 +1,38 @@
 import { Constants } from "./index";
-import { createShape } from "../scenes"
-import { Mesh, Scene } from "@babylonjs/core";
+import * as Scenes from "../scenes"
+import { Mesh, Scene, Vector3 } from "@babylonjs/core";
+
+type Obj = { name: string, position: Vector3, mesh: Mesh };
+type ObjArray = [Obj, Obj, Obj];
 
 class ObjectManager {
-    private objects = [
-        {name: "objLeft", position: Constants.objLeftPos, mesh: new Mesh("")},
-        {name: "objCenter", position: Constants.objCenterPos, mesh: new Mesh("")},
-        {name: "objRight", position: Constants.objRightPos, mesh: new Mesh("")}
-    ];
+    private objs: ObjArray;
     private scene: Scene;
 
     constructor(scene: Scene) {
         this.scene = scene;
+        this.objs = [
+            { name: "objLeft", position: Constants.objLeftPos, mesh: new Mesh("default", this.scene) },
+            { name: "objCenter", position: Constants.objCenterPos, mesh: new Mesh("default", this.scene) },
+            { name: "objRight", position: Constants.objRightPos, mesh: new Mesh("default", this.scene) }
+        ];
     }
 
     clear() {
         while(this.scene.meshes.length) {
-            const mesh = this.scene.meshes[0];
-            mesh.dispose();
+            console.log(this.scene.meshes[0].name);
+            this.scene.meshes[0].dispose();
         }
     }
 
-    createShapes() {
-        this.objects.forEach(object => {
-            object.mesh = createShape(this.scene, object.position)
+    Shapes() {
+        this.clear();
+        
+        this.objs.forEach(obj => {
+            const shapeFunction = Scenes.Shapes[Math.floor(Math.random() * Scenes.Shapes.length)];
+            const shape = shapeFunction(this.scene);
+            shape.position = obj.position;
+            obj.mesh = shape;
         })
     }
 }
