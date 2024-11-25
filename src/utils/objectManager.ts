@@ -14,6 +14,13 @@ class ObjectManager {
         this.scene = scene;
     }
 
+    clear() {
+        while(this.scene.meshes.length) {
+            const mesh = this.scene.meshes[0];
+            mesh.dispose();
+        }
+    }
+
     createShapes() {
         this.objects.forEach(object => {
             object.mesh = createShape(this.scene, object.position)

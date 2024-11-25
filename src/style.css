@@ -24,6 +24,13 @@ html, body {
   align-items: center;
 }
 
+#showMenuButton {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: none;
+}
+
 button {
   margin: 10px;
   padding: 10px 20px;

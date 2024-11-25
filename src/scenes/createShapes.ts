@@ -1,6 +1,6 @@
-import earcut from "earcut";
+// import earcut from "earcut";
 import { Constants } from "../utils";
-import { MeshBuilder, Mesh, Vector3, Scene, StandardMaterial, Color3, Color4, VertexData } from '@babylonjs/core';
+import { MeshBuilder, Mesh, Vector3, Scene, VertexData } from '@babylonjs/core';
 
 const shapes = [
     function createCircle(scene: Scene): Mesh {
@@ -11,25 +11,25 @@ const shapes = [
         return MeshBuilder.CreatePlane("square", { size: 2 }, scene);
     },
 
-    function createTriangle(scene: Scene): Mesh {
-        const triangle = new Mesh("triangle", scene);
+    // function createTriangle(scene: Scene): Mesh {
+    //     const triangle = new Mesh("triangle", scene);
     
-        const positions = [
-            0, 1, 0,
-            -1, -1, 0,
-            1, -1, 0
-        ];
+    //     const positions = [
+    //         0, 1, 0,
+    //         -1, -1, 0,
+    //         1, -1, 0
+    //     ];
     
-        const indices = earcut([0, 1, -1, -1, 1, -1], undefined, 2);
+    //     const indices = earcut([0, 1, -1, -1, 1, -1], undefined, 2);
     
-        const vertexData = new VertexData();
-        vertexData.positions = positions;
-        vertexData.indices = indices;
+    //     const vertexData = new VertexData();
+    //     vertexData.positions = positions;
+    //     vertexData.indices = indices;
     
-        vertexData.applyToMesh(triangle);
+    //     vertexData.applyToMesh(triangle);
     
-        return triangle;
-    }
+    //     return triangle;
+    // }
 ];
 
 export function createShape(scene: Scene, position: Vector3): Mesh {
