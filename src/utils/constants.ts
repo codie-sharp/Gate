@@ -14,6 +14,6 @@ class Constants {
     // math
     static ninetyDegrees = Math.PI / 2;
     static oneEightyDegrees = Math.PI;
-}
+};
 
 export default Constants;

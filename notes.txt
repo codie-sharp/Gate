@@ -1,6 +1,13 @@
-How to export array of functions in CreateShapes?
-How to randomize?
-
 Fix debugger at home
 
-document append button for every
+Scene type files export functions as an array
+    - export const Animals = [createCow, createHorse]
+In the scenes index file import everything and export an array of objects
+    - export const Scenes = [{ Animals }]
+        - Scenes will keep their names but still be accessible by index
+
+! = assures not null
+? = optional chain: if not null =>
+
+((scene: Scene) => Mesh)[] 
+- an array of functions that take scene as input and returns a Mesh

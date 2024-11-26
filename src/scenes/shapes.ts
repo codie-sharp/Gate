@@ -1,5 +1,5 @@
 import earcut from "earcut";
-import { MeshBuilder, Mesh, Vector3, Scene, VertexData } from '@babylonjs/core';
+import { MeshBuilder, Mesh, Scene, VertexData } from '@babylonjs/core';
 
 export const Shapes = [
     function createCircle(scene: Scene): Mesh {

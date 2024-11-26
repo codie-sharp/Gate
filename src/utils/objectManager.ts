@@ -1,5 +1,4 @@
 import { Constants } from "./index";
-import * as Scenes from "../scenes"
 import { Mesh, Scene, Vector3 } from "@babylonjs/core";
 
 type Obj = { name: string, position: Vector3, mesh: Mesh };
@@ -22,19 +21,23 @@ class ObjectManager {
         while(this.scene.meshes.length) {
             console.log(this.scene.meshes[0].name);
             this.scene.meshes[0].dispose();
-        }
-    }
+        };
+    };
 
-    Shapes() {
-        this.clear();
+    renderObjects(sceneSelection: ((scene: Scene) => Mesh)[]) {
+
+    };
+
+    // Shapes() {
+    //     this.clear();
         
-        this.objs.forEach(obj => {
-            const shapeFunction = Scenes.Shapes[Math.floor(Math.random() * Scenes.Shapes.length)];
-            const shape = shapeFunction(this.scene);
-            shape.position = obj.position;
-            obj.mesh = shape;
-        })
-    }
+    //     this.objs.forEach(obj => {
+    //         const shapeFunction = Scenes.Shapes[Math.floor(Math.random() * Scenes.Shapes.length)];
+    //         const shape = shapeFunction(this.scene);
+    //         shape.position = obj.position;
+    //         obj.mesh = shape;
+    //     })
+    // }
 }
 
 export default ObjectManager;

@@ -1,29 +1,22 @@
-import { ObjectManager } from "./index";
+import { Mesh, Scene } from "@babylonjs/core";
 
-class ButtonHandler {
-    private menu = document.getElementById("menu");
-    private menuButtons = this.menu!.querySelectorAll<HTMLButtonElement>("button");
-    private showMenuButton = document.getElementById("showMenuButton");
-    private objectManager: ObjectManager;
+class ButtonManager {
+    private menu = document.getElementById("menu")!;
+    private showMenuButton = document.getElementById("showMenuButton")!;
 
-    constructor(objectManager: ObjectManager) {
-        this.objectManager = objectManager;
-
-        this.menuButtons.forEach(button => {
-            button.addEventListener("click", () => {
-                const method = this.objectManager[button.dataset.method as keyof ObjectManager];
-                method.call(this.objectManager);
-                this.menu!.style.display = "none";
-                this.showMenuButton!.style.display = "block";
-            })
-        });
-
-        this.showMenuButton?.addEventListener("click", () => {
-            this.menu!.style.display = "flex";
+    constructor(scenes: { name: string, data: ((scene: Scene) => Mesh)[]; }[]) {
+        this.showMenuButton.addEventListener("click", () => {
+            this.menu.style.display = "flex";
             this.showMenuButton!.style.display = "none";
-            this.objectManager.clear();
         });
-    }
-}
 
-export default ButtonHandler;
+        scenes.forEach(scene => {
+            const button = document.createElement("button");
+            button.innerText = scene.name;
+            button.addEventListener("click", () => console.log(scene.data));
+            this.menu.appendChild(button);
+        });
+    };
+};
+
+export default ButtonManager;
